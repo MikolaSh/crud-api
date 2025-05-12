@@ -1,17 +1,8 @@
-import http from "http";
+import { app } from "./app";
 
-const startServer = (port: number, isDev: boolean) => {
-  const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end(`Server running in ${isDev ? 'DEV' : 'PROD'} mode\n`);
+export const startServer = () => {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
   });
-
-  server.listen(port, () => {
-    console.log(`Server started on port ${port}`);
-    console.log(`Mode: ${isDev ? 'Development' : 'Production'}`);
-  });
-
-  return server;
 };
-
-export default startServer;
