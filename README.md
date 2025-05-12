@@ -2,21 +2,21 @@
 
 # Instalation
 
-1.  ## run `npm install`  to install all dependencies ##
-2.  ## run `npm run start:dev`  to run the app in development mode ##
-3.  ## Make test requests using Thunder Client if you are using VS Code. ##
-  1. Go to the Extensions
-  2. Search "Thuder Client" 
-  3. Install this extension
+1.  **run `npm install`  to install all dependencies**
+2.  **run `npm run start:dev`  to run the app in development mode**
+3.  **Make test requests using Thunder Client if you are using VS Code.**
+    1. Go to the Extensions
+    2. Search "Thuder Client" 
+    3. Install this extension
 
   Thunder client doesnt't work with "localhost", so I provide an proper url to work with Thunder Client using IP from the user os. 
   To create a request with Thuder Client:
 
-  1. Go to Thuder Client in the sidebar in VS Code
-  2. Press "New Request"
-  3. In the text input add url 
-  4. Select method in select
-  5. In the "Body" tab you should provide objects for PUT and POST methods
+    1. Go to Thuder Client in the sidebar in VS Code
+    2. Press "New Request"
+    3. In the text input add url 
+    4. Select method in select
+    5. In the "Body" tab you should provide objects for PUT and POST methods
 
 Endpoints 
  - GET `http://{USER_IP}:4000/api/users` 
@@ -29,5 +29,5 @@ USER_IP - your network ID. You can find url in the consol after starting the app
 
 If you are using defferent IDE, you can use Postman. 
 
-4. ## run `npm run start:prod` to create a bundle.js ##
-5. ## run `npm run test` to run tests for api ##
+4. **run `npm run start:prod` to create a bundle.js**
+5. **run `npm run test` to run tests for api**
