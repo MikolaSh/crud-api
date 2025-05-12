@@ -6,7 +6,12 @@ export const generateUserId = () => {
   return uuidv4();
 }
 
-export const sendResponse = (res: ServerResponse, status: number, data?: Array<User>) => {
+export const isValidId = (id: string) => {
+  const regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  return regex.test(id);
+}
+
+export const sendResponse = (res: ServerResponse, status: number, data?: object) => {
   res.statusCode = status;
   if(data) {
     res.setHeader('Content-Type', 'application/json');

@@ -13,6 +13,10 @@ class UserService {
   getAllusers = (): Array<User> => {
     return Object.values(this.db.users);
   }
+
+  getUserById = (id: string): User => {
+    return this.db.users[id];
+  }
 }
 
 export default new UserService();

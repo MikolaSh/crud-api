@@ -1,10 +1,24 @@
-import { ServerResponse } from "http";
+import { IncomingMessage, ServerResponse } from "http";
 import userService from "../service/service";
-import { sendResponse } from "../utils";
+import { isValidId, sendResponse } from "../utils";
 
 export const getAllUsers = (res: ServerResponse) => {
   const users = userService.getAllusers();
-  console.log(users);
   sendResponse(res, 200, users);
-  return userService.getAllusers();
+}
+
+export const getUserById = (req: IncomingMessage, res: ServerResponse) => {
+  const id = req.url?.split('/')[3] || '';
+
+  if(!isValidId(id)) {
+    return sendResponse(res, 404, { message: 'User not found' })
+  }
+  
+  const user = userService.getUserById(id);
+
+  if(!user) {
+    return sendResponse(res, 404, { message: 'User not found' })
+  }
+
+  sendResponse(res, 200, user);
 }
