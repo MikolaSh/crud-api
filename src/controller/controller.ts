@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
 import userService from "../service/service";
-import { isValidId, sendResponse } from "../utils";
+import { isValidId, parseRequestBody, sendResponse, validateUserData } from "../utils";
 
 export const getAllUsers = (res: ServerResponse) => {
   const users = userService.getAllusers();
@@ -11,7 +11,7 @@ export const getUserById = (req: IncomingMessage, res: ServerResponse) => {
   const id = req.url?.split('/')[3] || '';
 
   if(!isValidId(id)) {
-    return sendResponse(res, 404, { message: 'Invalid Id' })
+    return sendResponse(res, 400, { message: 'Invalid Id (not uuid)' })
   }
   
   const user = userService.getUserById(id);
@@ -27,7 +27,7 @@ export const deleteUser = (req: IncomingMessage, res: ServerResponse) => {
   const id = req.url?.split('/')[3] || '';
 
   if(!isValidId(id)) {
-    return sendResponse(res, 404, { message: 'Invalid Id' })
+    return sendResponse(res, 400, { message: 'Invalid Id (not uuid)' })
   }
 
   const isDeleted = userService.deleteUser(id);
@@ -37,4 +37,21 @@ export const deleteUser = (req: IncomingMessage, res: ServerResponse) => {
   }
 
   sendResponse(res, 204);
+}
+
+export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
+  try {
+    const body = await parseRequestBody(req);
+    const validation = validateUserData(body);
+
+    if (!validation.isValid) {
+      return sendResponse(res, 400, { message: validation.error });
+    }
+
+    const newUser = userService.createUser(validation.user!);
+
+    sendResponse(res, 201, newUser);
+  } catch (error) {
+    sendResponse(res, 400, { message: 'Invalid request body' });
+  }
 }

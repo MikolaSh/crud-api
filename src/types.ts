@@ -8,3 +8,9 @@ export type User = {
 export type Users = {
   [key: string]: User;
 }
+
+export type ValidationResult = { 
+  isValid: boolean; 
+  user?: Omit<User, 'id'>; 
+  error?: string 
+}
