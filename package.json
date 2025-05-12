@@ -8,6 +8,7 @@
     "dev": "cross-env NODE_ENV=development nodemon",
     "build": "tsc && node --loader ts-node/esm ./node_modules/webpack/bin/webpack.js --config webpack.config.ts",
     "start:prod": "npm run build && cross-env NODE_ENV=production node build/bundle.js",
+    "test": "jest",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\" --fix"
   },
@@ -16,9 +17,9 @@
   "type": "module",
   "devDependencies": {
     "@babel/preset-env": "^7.24.0",
-    "@babel/preset-typescript": "^7.23.3",
+    "@babel/preset-typescript": "^7.27.1",
     "@types/clean-webpack-plugin": "^2.0.2",
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.14",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.17.46",
     "@types/webpack": "^5.28.5",
@@ -32,7 +33,7 @@
     "jest": "^29.7.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.2.5",
-    "ts-jest": "^29.1.2",
+    "ts-jest": "^29.3.2",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",

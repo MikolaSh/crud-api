@@ -2,12 +2,12 @@ import { RequestUserData, User, Users } from "src/types";
 import { initialUsers } from "./const";
 import { generateUserId } from "../utils";
 
-class UserService {
+export class UserService {
   private db: { users: Users };
 
-  constructor() {
+  constructor(initialUsers: Users) {
     this.db = { users: {} };
-    this.db.users = initialUsers;
+    this.db.users = initialUsers || {};
   }
 
   getAllusers = (): Array<User> => {
@@ -70,4 +70,4 @@ class UserService {
   }
 }
 
-export default new UserService();
+export default new UserService(initialUsers);
