@@ -17,6 +17,12 @@ class UserService {
   getUserById = (id: string): User => {
     return this.db.users[id];
   }
+
+  deleteUser = (id: string): boolean => {
+    if(!this.db.users[id]) return false;
+    delete this.db.users[id];
+    return true
+  }
 }
 
 export default new UserService();

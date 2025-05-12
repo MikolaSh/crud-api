@@ -11,7 +11,7 @@ export const getUserById = (req: IncomingMessage, res: ServerResponse) => {
   const id = req.url?.split('/')[3] || '';
 
   if(!isValidId(id)) {
-    return sendResponse(res, 404, { message: 'User not found' })
+    return sendResponse(res, 404, { message: 'Invalid Id' })
   }
   
   const user = userService.getUserById(id);
@@ -21,4 +21,20 @@ export const getUserById = (req: IncomingMessage, res: ServerResponse) => {
   }
 
   sendResponse(res, 200, user);
+}
+
+export const deleteUser = (req: IncomingMessage, res: ServerResponse) => {
+  const id = req.url?.split('/')[3] || '';
+
+  if(!isValidId(id)) {
+    return sendResponse(res, 404, { message: 'Invalid Id' })
+  }
+
+  const isDeleted = userService.deleteUser(id);
+
+  if (!isDeleted) {
+    return sendResponse(res, 404, { message: 'User not found' });
+  }
+
+  sendResponse(res, 204);
 }
