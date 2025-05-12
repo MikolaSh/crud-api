@@ -1,5 +1,7 @@
 import { ServerResponse } from "http";
 import { v4 as uuidv4 } from "uuid";
+import dns from "dns";
+import os from "os";
 import { User } from "./types";
 
 export const generateUserId = () => {
@@ -20,4 +22,18 @@ export const sendResponse = (res: ServerResponse, status: number, data?: object)
     res.end();
   }
 
+}
+
+export const getUserIPAddress = () => {
+  const options = { family: 4 };
+  
+  return new Promise((resolve, reject) => {
+    dns.lookup(os.hostname(), options, (err, addr) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(addr);
+      }
+    });
+  })
 }
