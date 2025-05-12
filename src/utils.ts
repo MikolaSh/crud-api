@@ -62,41 +62,48 @@ export const getUserIPAddress = () => {
 
 export const  validateUserData = (data: any): ValidationResult => {
 
-  if (typeof data !== 'object' || data === null) {
-    return { isValid: false, error: 'Request body must be a valid JSON object' };
-  }
+  try {
 
-  const { username, age, hobbies } = data;
-
-  if (!username || !age || !hobbies) {
-    return { 
-      isValid: false, 
-      error: 'Missing required fields: username, age and hobbies are required' 
-    };
-  }
-
-  if (typeof username !== 'string') {
-    return { isValid: false, error: 'Username must be a string' };
-  }
-
-  if (typeof age !== 'number' || !Number.isInteger(age) || age <= 0) {
-    return { isValid: false, error: 'Age must be a positive integer' };
-  }
-
-  if (!Array.isArray(hobbies)) {
-    return { isValid: false, error: 'Hobbies must be an array' };
-  }
-
-  if (!hobbies.every((hobby: any) => typeof hobby === 'string')) {
-    return { isValid: false, error: 'All hobbies must be strings' };
-  }
-
-  return {
-    isValid: true,
-    user: {
-      username,
-      age,
-      hobbies
+    if (typeof data !== 'object' || data === null) {
+      return { isValid: false, error: 'Request body must be a valid JSON object' };
     }
-  };
+  
+    const { username, age, hobbies } = data;
+  
+    if (!username || !age || !hobbies) {
+      return { 
+        isValid: false, 
+        error: 'Missing required fields: username, age and hobbies are required' 
+      };
+    }
+  
+    if (typeof username !== 'string') {
+      return { isValid: false, error: 'Username must be a string' };
+    }
+  
+    if (typeof age !== 'number' || !Number.isInteger(age) || age <= 0) {
+      return { isValid: false, error: 'Age must be a positive integer' };
+    }
+  
+    if (!Array.isArray(hobbies)) {
+      return { isValid: false, error: 'Hobbies must be an array' };
+    }
+  
+    if (!hobbies.every((hobby: any) => typeof hobby === 'string')) {
+      return { isValid: false, error: 'All hobbies must be strings' };
+    }
+  
+    return {
+      isValid: true,
+      user: {
+        username,
+        age,
+        hobbies
+      }
+    };
+  } catch(err) {
+    console.error('Validation error:', err);
+    throw new Error('Internal server error during validation');
+  }
+
 }
