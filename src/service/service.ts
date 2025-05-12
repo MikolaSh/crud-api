@@ -1,4 +1,4 @@
-import { User, Users } from "src/types";
+import { RequestUserData, User, Users } from "src/types";
 import { initialUsers } from "./const";
 import { generateUserId } from "../utils";
 
@@ -25,10 +25,15 @@ class UserService {
     return true
   }
 
-  createUser = (data: Omit<User, 'id'>): User => {
+  createUser = (data: RequestUserData): User => {
     const id = generateUserId();
-    this.db.users[id] = { id , ...data};
+    this.db.users[id] = { id, ...data };
     return this.db.users[id];
+  }
+
+  updateUser = (id: string, data: RequestUserData): User => {
+    this.db.users[id] = { id, ...data }
+    return this.db.users[id]
   }
 }
 

@@ -55,3 +55,32 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
     sendResponse(res, 400, { message: 'Invalid request body' });
   }
 }
+
+export const updateUser = async (req: IncomingMessage, res: ServerResponse) => {
+  const id = req.url?.split('/')[3] || '';
+
+  if (!isValidId(id)) {
+    return sendResponse(res, 400, { message: 'Invalid userId (not UUID)' });
+  }
+
+  try {
+    const body = await parseRequestBody(req);
+    const validation = validateUserData(body);
+
+    if(!validation.isValid) {
+      return sendResponse(res, 400, { message: 'Invalid request body' });
+    }
+
+    const updatedUser = userService.updateUser(id, validation.user!);
+
+    if (!updatedUser) {
+      return sendResponse(res, 404, { message: 'User not found' });
+    }
+
+    return sendResponse(res, 200, updatedUser);
+    
+  } catch(err) {
+    sendResponse(res, 400, { message: 'Invalid request body' });
+
+  }
+}

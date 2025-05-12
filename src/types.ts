@@ -5,12 +5,14 @@ export type User = {
   hobbies: Array<string>;
 };
 
+export type RequestUserData = Omit<User, 'id'>;
+
 export type Users = {
   [key: string]: User;
 }
 
 export type ValidationResult = { 
   isValid: boolean; 
-  user?: Omit<User, 'id'>; 
+  user?: RequestUserData; 
   error?: string 
 }

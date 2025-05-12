@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { createUser, deleteUser, getAllUsers, getUserById } from "../controller/controller";
+import { createUser, deleteUser, getAllUsers, getUserById, updateUser } from "../controller/controller";
 
 export const handleRoutes = (req: IncomingMessage, res: ServerResponse) => {
   const { method, url } = req;
@@ -11,6 +11,9 @@ export const handleRoutes = (req: IncomingMessage, res: ServerResponse) => {
   
   if(method === 'GET' && req.url?.startsWith('/api/users')) {
     return getUserById(req, res);
+  }
+  if(method === 'PUT' && req.url?.startsWith('/api/users')) {
+    return updateUser(req, res);
   }
   
   if(method === 'POST' && url === '/api/users') {
