@@ -27,5 +27,7 @@ Endpoints
 
 USER_IP - your network ID. You can find url in the consol after starting the app or you can get the IP with the command `ipconfig`. You need IPv4-address
 
+If you are using defferent IDE, you can use Postman. 
+
 4. ## run `npm run start:prod` to create a bundle.js ##
 5. ## run `npm run test` to run tests for api ##
